@@ -1,0 +1,25 @@
+<div class="main-container">
+  <mat-toolbar color="primary" class="top-bar">
+    <div class="navbar-header">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <span>
+        Scalke ERP
+      </span>
+    <div class="navbar-menu">
+      <app-header/>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav opened mode="side" #sidenav>
+    <app-sidebar/>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div>
+        <router-outlet/>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

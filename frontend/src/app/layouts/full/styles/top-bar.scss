@@ -1,0 +1,37 @@
+mat-toolbar{
+  box-shadow: 1px 0 10px rgba(0, 0, 0, 0.5);
+  &.top-bar{
+    padding: 0 15px;
+  }
+
+  .navbar-header{
+    text-align: center;
+    align-items: center;
+    .navbar-brand{
+      display: flex;
+      line-height: 18px;
+      align-items: center;
+      .dark-logo{
+        display: none;
+      }
+    }
+  }
+
+  .profile-pic{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+
+}
+
+.top-bar{
+}
+
+.navbar-menu{
+  width: 100%;
+
+  app-header{
+    float: right;
+  }
+}
