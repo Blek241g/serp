@@ -1,0 +1,32 @@
+<nav class="my-navbar navbar navbar-expand-lg px-1">
+  <a class="navbar-brand" routerLink="/">Scalek ERP</a>
+<!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--    <span class="navbar-toggler-icon"></span>-->
+<!--  </button>-->
+  <div class="d-flex flex-row-reverse navbar-items">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item d-sm-flex justify-content-sm-center">
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"  routerLink="home">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="pricing">Pricing</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="about-us">About us</a>
+      </li>
+      <li class="nav-item me-1" (click)="goTo('login')">
+            <button mat-button id="btnLogin">
+              Sign in
+            </button>
+      </li>
+         <li class="nav-item" (click)="goTo('register')">
+           <button mat-button id="btnRegister">
+             Sign up
+           </button>
+         </li>
+    </ul>
+
+  </div>
+</nav>
+
+<router-outlet/>

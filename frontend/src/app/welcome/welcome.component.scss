@@ -1,0 +1,22 @@
+.my-navbar{
+  background-color: black;
+  .navbar-brand{
+    color: white;
+  }
+  .navbar-items{
+    width: 100%;
+    #btnRegister, #btnLogin{
+      background-color: #8b8b8b;
+    }
+    a{
+      padding-top: 8px;
+      color: #d1d1d1;
+    }
+    a.active{
+      color: white;
+    }
+  }
+  button{
+    color: white;
+  }
+}

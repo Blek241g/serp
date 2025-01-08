@@ -1,0 +1,82 @@
+.sidebar{
+  padding: 0;
+}
+
+.nav-item:has(.app-name){
+  border-bottom: 1px solid #d7ecff;
+  height: var(--mat-toolbar-standard-height);
+  padding: 0;
+  border-radius: 0;
+}
+.nav-item:has(img){
+  padding-top: 3px;
+}
+
+.nav-link1:hover{
+  background-color: #545477;
+}
+a.active{
+  background: #2121fd;
+  .nav-link-title{
+    color: white;
+  }
+}
+.nav-link-title{
+  color: rgba(255, 255, 255, .8);
+  margin-left: 5px;
+  width: 100%;
+
+  &.app-name{
+
+  }
+}
+
+.brand-image{
+  float: left;
+  line-height: .8;
+  margin-left: .8rem;
+  margin-right: .5rem;
+  margin-top: -3px;
+  max-height: 33px;
+  width: auto;
+  opacity: .8;
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+.mat-expansion-panel {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent;
+
+  &.mat-expansion-panel-spacing {
+    margin: 0;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0;
+    color: white;
+  }
+
+  .mat-expansion-panel-header {
+    height: var(--mdc-list-list-item-one-line-container-height);
+    padding: 0 24px 0 16px;
+    //background: red;
+    .mat-expansion-indicator{
+
+      background-color: #2121fd;
+    }
+
+    svg{
+      color: red;
+    }
+  }
+
+  .mat-expansion-panel-header-title {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}

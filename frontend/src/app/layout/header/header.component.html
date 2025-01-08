@@ -1,0 +1,11 @@
+<div class="account-circle">
+  <button [matMenuTriggerFor]="profile" #menuTrigger mat-icon-button class="m-r-5">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #profile="matMenu" class="mymegamenu">
+    <button mat-menu-item>Sign out</button>
+    <button mat-menu-item>Profile</button>
+    <button mat-menu-item>Settings</button>
+    <button mat-menu-item (click)="openDialog()">Open dialog</button>
+  </mat-menu>
+</div>

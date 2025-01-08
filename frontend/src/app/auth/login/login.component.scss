@@ -1,0 +1,30 @@
+.login-form{
+  margin-top: 10%;
+}
+
+mat-form-field{
+  width: 75%;
+}
+
+.login-title{
+  margin-bottom: 1%;
+  font-size: 26px;
+  font-weight: 900
+}
+
+.submit-button{
+  width: 75%;
+
+  button{
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+  }
+}
+
+.img-login{
+  margin-top: 10px;
+  mat-card{
+    width: 700px;
+  }
+}

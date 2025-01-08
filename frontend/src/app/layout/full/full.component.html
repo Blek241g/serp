@@ -1,0 +1,27 @@
+<div class="main-container">
+  <mat-sidenav-container class="example-sidenav-container" [style.margin-top.px]="isMobileDevice ? 0 : 0">
+    <mat-sidenav
+      class="sidebar-dark"
+      [opened]="true" [mode]="isMobileDevice ? 'over' : 'side'" #sidenav>
+      <app-sidebar/>
+    </mat-sidenav>
+    <mat-sidenav-content class="page-wrapper">
+      <mat-toolbar color="primary" class="top-bar main-header">
+        <div class="navbar-header">
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+        <span *ngIf="!isMobileDevice">
+
+        </span>
+        <div class="navbar-menu">
+          <app-header/>
+        </div>
+      </mat-toolbar>
+      <div class="page-content">
+        <router-outlet/>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

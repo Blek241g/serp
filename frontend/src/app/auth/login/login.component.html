@@ -1,0 +1,43 @@
+<div class="row container">
+  <div class="col-md-6 col-sm-12 login-form">
+    <span class="login-title" style="margin-left: 10%">Login</span>
+    <div class="m-3"></div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="margin-left: 10%">
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="email">
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" [type]="hide() ? 'password': 'text' ">
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="clickEvent($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()"
+            >
+              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="col-12 d-flex justify-content-center submit-button">
+          <button class="btn" type="submit">
+            Sign in
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6 col-sm-12 img-login">
+    <mat-card appearance="outlined">
+<!--      <mat-card-content>Simple card</mat-card-content>-->
+      <img mat-card-image src="img/img.png" alt="Resource manage">
+    </mat-card>
+
+  </div>
+</div>

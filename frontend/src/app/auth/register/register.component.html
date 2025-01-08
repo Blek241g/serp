@@ -1,0 +1,84 @@
+
+<div class="row container">
+  <div class="col-md-12">
+    <span>Sign up</span>
+    <div class="m-3"></div>
+    <form [formGroup]="signUpForm" (ngSubmit)="handleSubmit()">
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Firstname</mat-label>
+            <input matInput type="text" formControlName="firstname">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Lastname</mat-label>
+            <input matInput type="text" formControlName="lastname">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="username">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input matInput type="text" formControlName="phoneNumber">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" [type]="hide() ? 'password': 'text' ">
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="clickEvent($event, hide)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()"
+            >
+              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm password</mat-label>
+            <input [type]="hide1() ? 'password' : 'text'" matInput formControlName="confirmPassword" required/>
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="clickEvent($event, hide1)"
+              [attr.aria-label]="'Hide confirm password'"
+              [attr.aria-pressed]="hide1()"
+            >
+              <mat-icon>{{hide1() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="!signUpForm.controls['confirmPassword'].untouched && signUpForm.controls['confirmPassword'].invalid">
+          <span *ngIf="signUpForm.controls['confirmPassword'].errors?.['required']">
+              Confirm password is required!
+          </span>
+            </mat-error>
+            <mat-hint *ngIf="validateSubmit() && !(signUpForm.controls['confirmPassword'].invalid)">
+              <span>New password and confirm password does not match!</span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-12 d-flex justify-content-center submit-button">
+          <button class="btn btn-primary" type="submit">
+            Sign in
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

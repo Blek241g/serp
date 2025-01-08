@@ -1,0 +1,47 @@
+<mat-card>
+  <mat-card-header class="row">
+      <div class="col-md-6">
+        <mat-card-title style="width: 100%">List of users</mat-card-title>
+      </div>
+      <div class="col-md-6 d-flex flex-row-reverse">
+        <button mat-icon-button style="background-color: greenyellow; color: white" (click)="onAddUser()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>Field</mat-label>
+      <mat-select #field>
+        @for (field of displayedColumns; track field) {
+          <mat-option [value]="field">{{field}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput #input>
+      <button
+        mat-icon-button
+        matSuffix
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <table mat-table [dataSource]="data" class="mat-elevation-z8">
+      @for (column of displayedColumns; track column) {
+        <ng-container [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+          <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        </ng-container>
+      }
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </mat-card-content>
+</mat-card>
+
+<div class="m-3">
+</div>

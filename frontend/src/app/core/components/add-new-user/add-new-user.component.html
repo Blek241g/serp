@@ -1,0 +1,84 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h2 mat-dialog-title style="color: white">Add new user</h2>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-dialog-content>
+  <div>
+    <form [formGroup]="addNewUserForm" (ngSubmit)="handleSubmit()">
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Firstname</mat-label>
+            <input matInput type="text" formControlName="firstname">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Lastname</mat-label>
+            <input matInput type="text" formControlName="lastname">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="username">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field>
+            <mat-label>User's type</mat-label>
+            <mat-select formControlName="type">
+              @for (type of [UserType.ADMIN, UserType.OWNER, UserType.REGULAR]; track type) {
+                <mat-option [value]="type">{{type.toString()}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input matInput type="text" formControlName="phoneNumber">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="text">
+            <button
+              mat-icon-button
+              matSuffix
+            >
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          (click)="handleSubmit()"
+  >
+    <mat-icon>save</mat-icon>Save
+  </button>
+  <button mat-button
+          mat-dialog-close
+          mat-raised-button
+          color="warn"
+          type="reset"
+  >
+    <mat-icon>close</mat-icon>Close
+  </button>
+</mat-dialog-actions>
