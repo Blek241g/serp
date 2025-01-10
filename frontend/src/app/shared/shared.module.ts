@@ -7,12 +7,30 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableComponent } from './table/table.component';
+import {
+  MatCell,
+  MatCellDef,
+  MatHeaderCell,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef, MatTable
+} from '@angular/material/table';
+import {MatIcon} from '@angular/material/icon';
+import {MatPaginator} from '@angular/material/paginator';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 
 
 @NgModule({
   declarations: [
-    AddressFormComponent
+    AddressFormComponent,
+    TableComponent,
+    BreadcrumbComponent
+  ],
+  exports: [
+    BreadcrumbComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +39,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCell,
+    MatCellDef,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatIcon,
+    MatPaginator,
+    MatRow,
+    MatRowDef,
+    MatTable
   ]
 })
 export class SharedModule { }

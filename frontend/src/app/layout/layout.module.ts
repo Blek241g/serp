@@ -6,7 +6,7 @@ import { FullComponent } from './full/full.component';
 import {RouterModule} from '@angular/router';
 import {MaterialModule} from '../material';
 import {NgIconsModule} from '@ng-icons/core';
-import {bootstrapPeople} from '@ng-icons/bootstrap-icons';
+import {bootstrapPeople, bootstrapSpeedometer} from '@ng-icons/bootstrap-icons';
 
 
 
@@ -20,7 +20,7 @@ import {bootstrapPeople} from '@ng-icons/bootstrap-icons';
     CommonModule,
     MaterialModule,
     RouterModule,
-    NgIconsModule.withIcons({bootstrapPeople})
+    NgIconsModule.withIcons({bootstrapPeople, bootstrapSpeedometer})
   ],
     exports: [
       RouterModule

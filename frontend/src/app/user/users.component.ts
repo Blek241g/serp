@@ -1,27 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AddNewUserComponent} from '../core/components/add-new-user/add-new-user.component';
 import {UserType} from '../core/constants/user-type';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import {UserService} from '../core/services/user.service';
+import {DataSource} from '@angular/cdk/collections';
+import {User} from '../core/models';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-users',
@@ -30,41 +14,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
-export class UsersComponent{
-  displayedColumns: string[] = ['name', 'weight', 'symbol', 'position'];
-  columnsToDisplay: string[] = this.displayedColumns.slice();
-  data: PeriodicElement[] = ELEMENT_DATA;
+export class UsersComponent implements OnInit{
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'email'];
+  dataSource!: DataSource<User>;
 
-  constructor(private dialog:MatDialog) {
+  constructor(private userService: UserService, private dialog: MatDialog) {
   }
 
-  addColumn() {
-    const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
-    this.columnsToDisplay.push(this.displayedColumns[randomColumn]);
+  ngOnInit() {
+    this.userService.getUsers().subscribe({
+      next: results => {
+        this.dataSource = new MatTableDataSource(results)
+      }
+    })
   }
 
-  removeColumn() {
-    if (this.columnsToDisplay.length) {
-      this.columnsToDisplay.pop();
-    }
+  openAdduserDialog() {
+    this.dialog.open(AddNewUserComponent, {})
   }
-
-  shuffle() {
-    let currentIndex = this.columnsToDisplay.length;
-    while (0 !== currentIndex) {
-      let randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // Swap
-      let temp = this.columnsToDisplay[currentIndex];
-      this.columnsToDisplay[currentIndex] = this.columnsToDisplay[randomIndex];
-      this.columnsToDisplay[randomIndex] = temp;
-    }
-  }
-
-  onAddUser() {
-    this.dialog.open(AddNewUserComponent, {});
-  }
-
-  protected readonly UserType = UserType;
 }

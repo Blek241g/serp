@@ -1,36 +1,32 @@
 
 
-<mat-nav-list class="sidebar">
-  <a class="d-inline-flex nav-item" mat-list-item routerLink="">
+<mat-nav-list class="sidebar-list">
+  <a class="d-inline-flex sidebar-header mb-3" mat-list-item routerLink="">
    <div style="padding-top: 3px">
      <img src="img/logo.png" alt="" class="brand-image img-circle">
-     <span class="nav-link-title app-name">Scalke ERP</span>
+     <span class="app-name">Scalke ERP 2</span>
    </div>
   </a>
-  <a class="d-inline-flex mt-3 nav-item nav-link1" mat-list-item routerLink="dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-     <div class="row">
-       <div class="col-1" style="color: white"><mat-icon>dashboard</mat-icon></div>
-       <div class="col-10"><span matLine class="nav-link-title">Dashboard </span></div>
-     </div>
-  </a>
-  <a class="d-inline-flex nav-link1" mat-list-item routerLink="users" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-    <div class="row">
-      <div class="col-1" style="color: white"><mat-icon>groups</mat-icon></div>
-      <div class="col-10"><span matLine class="nav-link-title">Users </span></div>
-    </div>
-  </a>
-<!--  <mat-expansion-panel class="mat-elevation-z0">-->
-<!--    <mat-expansion-panel-header >-->
-<!--      <mat-panel-title>-->
-<!--        <div class="row">-->
-<!--          <div class="col-1" style="color: white"><mat-icon>groups</mat-icon></div>-->
-<!--          <div class="col-8"><span class="nav-link-title" matLine>Dashboard </span></div>-->
-<!--        </div>-->
-<!--      </mat-panel-title>-->
-<!--    </mat-expansion-panel-header>-->
-<!--    <mat-nav-list>-->
-<!--      <a mat-list-item style="color: rgba(255, 255, 255, .8)">Item Three</a>-->
-<!--      <a mat-list-item class="nav-link-title"><span class="nav-link-title" matLine>Dashboard </span></a>-->
-<!--    </mat-nav-list>-->
-<!--  </mat-expansion-panel>-->
+  @for(item of items; track item.path){
+    <ng-container>
+      <a class="d-inline-flex my-nav-item my-nav-link" mat-list-item [routerLink]="item.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <div class="row">
+          <div class="col-1" style="color: white"><mat-icon>{{item.icon}}</mat-icon></div>
+          <div class="col-10"><span matLine class="nav-link-title">{{item.title}}</span></div>
+        </div>
+      </a>
+    </ng-container>
+  }
+<!--  <a class="d-inline-flex my-nav-item my-nav-link" mat-list-item routerLink="users" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">-->
+<!--    <div class="row">-->
+<!--      <div class="col-1" style="color: white"><mat-icon>groups</mat-icon></div>-->
+<!--      <div class="col-10"><span matLine class="nav-link-title">Users </span></div>-->
+<!--    </div>-->
+<!--  </a>-->
+<!--  <a class="d-inline-flex my-nav-item my-nav-link" mat-list-item routerLink="plans" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">-->
+<!--    <div class="row">-->
+<!--      <div class="col-1" style="color: white"><mat-icon>bookmark</mat-icon></div>-->
+<!--      <div class="col-10"><span matLine class="nav-link-title">Plans </span></div>-->
+<!--    </div>-->
+<!--  </a>-->
 </mat-nav-list>

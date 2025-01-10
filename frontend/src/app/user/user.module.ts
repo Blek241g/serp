@@ -4,6 +4,7 @@ import {UsersComponent} from './users.component';
 import {UserRoutingModule} from './user-routing.module';
 import {MaterialModule} from '../material';
 import {ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from '../shared/shared.module';
 
 
 
@@ -15,7 +16,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     CommonModule,
     UserRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class UserModule { }

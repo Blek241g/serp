@@ -9,7 +9,8 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
   templateUrl: './full.component.html',
   styleUrls:[
     './full.component.scss',
-    './styles/sidebar.css'
+    './styles/sidebar.scss',
+    './styles/toolbar.scss',
   ],
 })
 export class FullComponent {

@@ -1,5 +1,6 @@
 import {Component, signal} from '@angular/core';
 import {bootstrapPeople} from '@ng-icons/bootstrap-icons';
+import {NAV_ITEMS} from '../../core/models/nav-items';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,6 +10,7 @@ import {bootstrapPeople} from '@ng-icons/bootstrap-icons';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  items = NAV_ITEMS;
 
   readonly panelOpenState = signal(false);
 }

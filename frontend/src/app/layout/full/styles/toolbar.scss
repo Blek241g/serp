@@ -1,0 +1,12 @@
+mat-toolbar{
+  box-shadow: 1px 0 10px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e6;
+  z-index: 1034;
+  color: #1f2d3d;
+  &.top-bar{
+    padding: 0 15px;
+
+
+  }
+}

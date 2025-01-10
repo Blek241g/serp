@@ -6,7 +6,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-address-form',
   templateUrl: './address-form.component.html',
-  styleUrl: './address-form.component.scss'
+  styleUrl: './address-form.component.scss',
+  standalone: false
 })
 export class AddressFormComponent {
   private fb = inject(FormBuilder);
