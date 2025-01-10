@@ -13,13 +13,13 @@ public class Test {
 
         System.out.println(bytes.length);
 
-    RsaKeysUtil.getPublicKey("user-service/pub.pem");
-
-
-    byte[] bytes1= Files.readAllBytes(Paths.get("user-service/priv.pem"));
-
-        System.out.println(bytes1.length);
-
-    RsaKeysUtil.getPrivateKey("user-service/priv.pem");
+//    RsaKeysUtil.getPublicKey("user-service/pub.pem");
+//
+//
+//    byte[] bytes1= Files.readAllBytes(Paths.get("user-service/priv.pem"));
+//
+//        System.out.println(bytes1.length);
+//
+//    RsaKeysUtil.getPrivateKey("user-service/priv.pem");
     }
 }

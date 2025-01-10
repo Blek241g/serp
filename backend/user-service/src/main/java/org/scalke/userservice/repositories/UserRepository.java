@@ -9,17 +9,18 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findAppUsersByUsername(String username);
-    User findAppUsersByEmail(String email);
+//    User findAppUsersByUsername(String username);
+//    User findAppUsersByEmail(String email);
     User findFirstByEmail(String email);
-    User findFirstByUsername(String username);
-    Page<User> findAppUserByCreatedBy(Long id, Pageable pageable);
-
-    @Modifying
-    @Query("update User  u set u.deleted=false where u.id=:id")
-    void deleteUserById(Long id);
-
-    @Modifying
-    @Query("update User u set u.deleted=false where u=:appUser")
-    void deleteUser(User appUser);
+//    User findFirstByUsername(String username);
+//    Page<User> findAppUserByCreatedBy(Long id, Pageable pageable);
+//
+//    @Modifying
+//    @Query("update User  u set u.deleted=false where u.id=:id")
+//    void deleteUserById(Long id);
+//
+//    @Modifying
+//    @Query("update User u set u.deleted=false where u=:appUser")
+//    void deleteUser(User appUser);
+    boolean existsByEmail(String email);
 }

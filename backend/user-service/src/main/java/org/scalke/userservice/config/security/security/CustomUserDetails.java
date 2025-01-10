@@ -1,7 +1,9 @@
 package org.scalke.userservice.config.security.security;
 
+import lombok.Getter;
 import org.scalke.userservice.entities.Permission;
 import org.scalke.userservice.entities.Role;
+import org.scalke.userservice.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,26 +12,38 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UserInfoDetails implements UserDetails {
-   UserInfo userInfo;
+public class CustomUserDetails implements UserDetails {
+    private final String email;
+    private final String password;
+    private final List<GrantedAuthority> authorities;
+    @Getter
+    private long userid;
+    private final boolean enabled;
+    @Getter
+    private boolean deleted;
 
-    public UserInfoDetails(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public CustomUserDetails(User user) {
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.authorities = getGrantedAuthorities(getPrivileges(user.getRoles()));
+        this.userid = user.getId();
+        this.enabled = user.getIsActive();
+
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getGrantedAuthorities(getPrivileges(userInfo.getRoles()));
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return userInfo.getPassword();
+       return password;
     }
 
     @Override
     public String getUsername() {
-        return userInfo.getEmail();
+        return email;
     }
 
     @Override
@@ -48,16 +62,9 @@ public class UserInfoDetails implements UserDetails {
     }
 
     @Override
-//    public boolean isEnabled() {
-//        return Objects.equals(userInfo.getStatus(), UserStatus.ENABLED);
-//    }
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
-
-//    public UserStatus getStatus() {
-//        return userInfo.getStatus();
-//    }
 
     private List<String> getPrivileges(Collection<Role> roles){
         List<String> privileges = new ArrayList<>();
@@ -74,5 +81,9 @@ public class UserInfoDetails implements UserDetails {
             authorities.add(new SimpleGrantedAuthority(privilege));
         }
         return authorities;
+    }
+
+    public List<String> authoritiesToString() {
+        return authorities.stream().map(GrantedAuthority::getAuthority).toList();
     }
 }

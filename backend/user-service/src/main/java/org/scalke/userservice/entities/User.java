@@ -10,6 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.scalke.userservice.constants.UserType;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +19,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "users")
 @DynamicUpdate @DynamicInsert
-public class User extends RepresentationModel<User> {
+public class User extends RepresentationModel<User> implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
@@ -60,6 +62,9 @@ public class User extends RepresentationModel<User> {
 
 
     public Long getCreatedBy(){
-        return userType == UserType.ADMIN ? getId() : createdBy;
+        if(userType == UserType.ADMIN || (userType == UserType.OWNER && createdBy == null))
+            return id;
+        else
+            return createdBy;
     }
 }

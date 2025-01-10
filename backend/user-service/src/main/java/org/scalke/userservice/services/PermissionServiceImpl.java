@@ -1,13 +1,15 @@
 package org.scalke.userservice.services;
 
 import lombok.extern.slf4j.Slf4j;
-import org.scalke.userservice.constants.AppMessage;
+import org.scalke.exceptions.AlreadyExistException;
+import org.scalke.exceptions.DoesNotExistException;
+import org.scalke.exceptions.NotFoundException;
+import org.scalke.userservice.dtos.PermissionDTO;
 import org.scalke.userservice.entities.Permission;
-import org.scalke.userservice.exceptions.PermissionServiceLogicException;
+import org.scalke.userservice.mappers.PermissionMapper;
 import org.scalke.userservice.repositories.PermissionRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
@@ -20,103 +22,69 @@ import lombok.AllArgsConstructor;
 @Slf4j
 public class PermissionServiceImpl implements PermissionService{
     private PermissionRepository permissionRepository;
-
+    public static final String ENTITY_NAME = "Permission";
+    private PermissionMapper permissionMapper;
 
     @Override
-    public Permission addNewPermission(Permission appPermission) throws PermissionServiceLogicException {
+    public Page<PermissionDTO> findPermissions(Pageable pageable){
         try {
-            return permissionRepository.save(appPermission);
-        }catch (Exception e) {
-            log.error("Failed to add new permission " + e.getMessage());
-            throw new PermissionServiceLogicException(AppMessage.SOME_THING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+            return permissionRepository.findAll(pageable).map(p -> permissionMapper.entityToDto(p));
+        }catch(Exception e) {
+            log.error(e.getMessage());
+            return null;
         }
     }
 
     @Override
-    public Permission findPermissionByName(String name) throws PermissionServiceLogicException {
-        try {
-//            AppPermission permission = permissionRepository.findAppPermissionByName(name);
-            Permission permission = permissionRepository.findFirstByName(name);
+    public Permission findPermissionById(long id) throws NotFoundException {
+        return permissionRepository.findById(id).orElseThrow(() -> new NotFoundException(ENTITY_NAME, "id", String.valueOf(id)));
+    }
 
+    @Override
+    public Permission findPermissionByName(String name) throws NotFoundException {
+        try {
+            Permission permission = permissionRepository.findFirstByName(name);
             if(permission == null) {
-                throw new PermissionServiceLogicException("Permission with name "+name+" not found", HttpStatus.NOT_FOUND);
+                throw new NotFoundException(ENTITY_NAME, "name", name);
             }
             return permission;
-        }catch (PermissionServiceLogicException e) {
+        }catch (NotFoundException e) {
+            log.error(e.getMessage());
             throw e;
         }
-        catch (Exception e) {
-            log.error("Failed to fetch permission with name" + e.getMessage());
-            throw new PermissionServiceLogicException(AppMessage.SOME_THING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public PermissionDTO addNewPermission(String name) throws AlreadyExistException {
+        if(!permissionRepository.existsByName(name)) {
+            return permissionMapper.entityToDto(
+                    permissionRepository.save(
+                            Permission.builder().name(name).build()
+                    )
+            );
+        }else {
+            throw new AlreadyExistException(ENTITY_NAME, "name", name);
         }
     }
 
     @Override
-    public Page<Permission> findPermissions(Pageable pageable) throws PermissionServiceLogicException {
-        try {
-            return permissionRepository.findAll(pageable);
-        }catch (Exception e) {
-            log.error("Failed to fetch permissions: " + e.getMessage());
-            throw new PermissionServiceLogicException(AppMessage.SOME_THING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    @Override
-    public Permission findPermissionById(long id) throws PermissionServiceLogicException {
-        try {
-            return permissionRepository.findById(id).orElseThrow(() -> new PermissionServiceLogicException("Permission with id:"+id+" not found !",
-                    HttpStatus.NOT_FOUND));
-        }catch (PermissionServiceLogicException e) {
-            throw e;
-        }
-        catch (Exception e) {
-            log.error("Failed to fetch permission with id" + e.getMessage());
-            throw new PermissionServiceLogicException(AppMessage.SOME_THING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public PermissionDTO updatePermission(long id, String name) throws DoesNotExistException, AlreadyExistException {
+      Permission permission = permissionRepository.findById(id).orElseThrow(() -> new DoesNotExistException(ENTITY_NAME, "id", String.valueOf(id)));
+     if(permissionRepository.existsByName(name)) {
+         throw new AlreadyExistException(ENTITY_NAME, "name", name);
+     }else{
+         permission.setName(name);
+         return permissionMapper.entityToDto(permissionRepository.save(permission));
+     }
     }
 
     @Override
-    public Permission updatePermission(Permission permission) throws PermissionServiceLogicException {
-        try {
-            Permission appPermission = findPermissionById(permission.getId());
-            return permissionRepository.save(appPermission);
-        }catch (Exception e) {
-            log.error("Failed to update permission with Permission type" + e.getMessage());
-            throw new PermissionServiceLogicException(AppMessage.SOME_THING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
-    @Override
-    public Permission updatePermission(long permissionId, String permissionName) throws PermissionServiceLogicException {
-        try {
-            Permission appPermission = findPermissionById(permissionId);
-            appPermission.setName(permissionName);
-            return permissionRepository.save(appPermission);
-        }catch (Exception e) {
-            log.error("Failed to update permission with permission id and permission name" + e.getMessage());
-            throw new PermissionServiceLogicException(AppMessage.SOME_THING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public void deletePermissionBy(long id) throws PermissionServiceLogicException {
-        try {
-            findPermissionById(id);
+    public void deletePermissionById(long id) throws DoesNotExistException {
+        if(permissionRepository.existsById(id)) {
             permissionRepository.deleteById(id);
-        }catch (Exception e) {
-            log.error("Failed to delete permission with id" + e.getMessage());
-            throw new PermissionServiceLogicException(AppMessage.SOME_THING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        }else{
+            throw new DoesNotExistException(ENTITY_NAME, "id", String.valueOf(id));
         }
     }
 
-    @Override
-    public void deletePermission(String name) throws PermissionServiceLogicException {
-        try {
-            Permission permission = findPermissionByName(name);
-            permissionRepository.delete(permission);
-        }catch (Exception e) {
-            log.error("Failed to delete permission with name" + e.getMessage());
-            throw new PermissionServiceLogicException(AppMessage.SOME_THING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }

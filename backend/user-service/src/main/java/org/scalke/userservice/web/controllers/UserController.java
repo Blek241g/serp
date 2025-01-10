@@ -13,27 +13,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 public interface UserController{
-    @PostMapping("")
-    ResponseEntity<UserDTO> createMewUser(@Valid @RequestBody AddNewUserRequest request) throws UserServiceLogicException;
-
-    @GetMapping("/id/{id}")
-    ResponseEntity<User> getUserById(@PathVariable Long id) throws UserServiceLogicException, UserNotFoundException;
-
-    @GetMapping("/search/email/{email}")
-    ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) throws UserServiceLogicException;
-
-    @GetMapping("/search/username/{username}")
-    ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) throws UserServiceLogicException;
-
-    @GetMapping("/search/created-by/{creatorId}")
-    ResponseEntity<Page<UserDTO>> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
-                                           @RequestParam(defaultValue = "id") String sortBy, @RequestParam(defaultValue = "true") boolean ascending,
-                                           @PathVariable long creatorId) throws UserServiceLogicException, UserNotFoundException;
-
-    @PutMapping("")
-    ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UpdateUserRequest request) throws UserServiceLogicException;
-
-    @PatchMapping("/name")
-    ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UpdateUserNameRequest request) throws UserServiceLogicException, UserNotFoundException;
+//    @PostMapping("")
+//    ResponseEntity<UserDTO> createMewUser(@Valid @RequestBody AddNewUserRequest request) throws UserServiceLogicException;
+//
+//    @GetMapping("/id/{id}")
+//    ResponseEntity<User> getUserById(@PathVariable Long id) throws UserServiceLogicException, UserNotFoundException;
+//
+//    @GetMapping("/search/email/{email}")
+//    ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) throws UserServiceLogicException;
+//
+//    @GetMapping("/search/username/{username}")
+//    ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) throws UserServiceLogicException;
+//
+//    @GetMapping("/search/created-by/{creatorId}")
+//    ResponseEntity<Page<UserDTO>> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
+//                                           @RequestParam(defaultValue = "id") String sortBy, @RequestParam(defaultValue = "true") boolean ascending,
+//                                           @PathVariable long creatorId) throws UserServiceLogicException, UserNotFoundException;
+//
+//    @PutMapping("")
+//    ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UpdateUserRequest request) throws UserServiceLogicException;
+//
+//    @PatchMapping("/name")
+//    ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UpdateUserNameRequest request) throws UserServiceLogicException, UserNotFoundException;
 
 }

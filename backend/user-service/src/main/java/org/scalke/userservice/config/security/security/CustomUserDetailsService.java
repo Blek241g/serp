@@ -18,7 +18,7 @@ import java.util.Objects;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
-    private UserInfoDetails userDetails;
+    private CustomUserDetails userDetails;
 
     public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("In UserDetailsService loadUserByUsername {}", username);
         User user = userRepository.findFirstByEmail(username);
         if (!Objects.isNull(user)) {
-            userDetails = new UserInfoDetails(new UserInfo(user));
+            userDetails = new CustomUserDetails(user);
             return userDetails;
         } else {
             throw new UsernameNotFoundException("User " + username + " not found!");

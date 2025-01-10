@@ -1,19 +1,34 @@
 package org.scalke.userservice.services;
 
 
+import org.scalke.exceptions.AlreadyExistException;
+import org.scalke.exceptions.DoesNotExistException;
+import org.scalke.exceptions.NotFoundException;
+import org.scalke.userservice.dtos.RoleDTO;
 import org.scalke.userservice.entities.Role;
 import org.scalke.userservice.exceptions.RoleServiceLogicException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface RoleService {
-    Role addNewRole(Role appRole) throws RoleServiceLogicException;
-    Role findAppRoleByName(String name) throws RoleServiceLogicException;
-    Role findAppRoleById(long id) throws RoleServiceLogicException;
-    Page<Role> findAllAppRoles(Pageable pageable) throws RoleServiceLogicException;
-    Role updateAppRole(Role appRole) throws RoleServiceLogicException;
-    Role updateAppRole(long roleId, String roleName) throws RoleServiceLogicException;
-    void deleteAppRole(long id) throws RoleServiceLogicException;
-    void deleteAppRole(Role appRole) throws RoleServiceLogicException;
-    void deleteAppRole(String name) throws RoleServiceLogicException;
+    @PreAuthorize("hasAuthority('show_roles')")
+    Page<RoleDTO> findRoles(Pageable pageable);
+
+    @PreAuthorize("hasAuthority('show_roles')")
+    Role findRoleById(long id) throws NotFoundException;
+
+    @PreAuthorize("hasAuthority('show_roles')")
+    Role findRoleByName(String name) throws NotFoundException;
+
+    @PreAuthorize("hasAuthority('add_roles')")
+    RoleDTO addNewRole(String name) throws DoesNotExistException;
+
+    @PreAuthorize("hasAuthority('edit_roles')")
+    RoleDTO updateRole(long roleId, String roleName) throws AlreadyExistException, DoesNotExistException;
+
+    @PreAuthorize("hasAuthority('delete_roles')")
+    void deleteRoleById(long id, boolean confirmDelete) throws DoesNotExistException, RoleServiceLogicException;
 }

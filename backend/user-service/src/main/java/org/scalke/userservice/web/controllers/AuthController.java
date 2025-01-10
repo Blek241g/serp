@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/auth")
 public interface AuthController {
-    @PostMapping(path = "/signup")
-    ResponseEntity<String> signup(@Valid @RequestBody SignupRequest request);
+//    @PostMapping(path = "/signup")
+//    ResponseEntity<String> signup(@Valid @RequestBody SignupRequest request);
 
     @PostMapping(path = "/login")
     ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) throws MethodArgumentNotValidException;
-
-    @GetMapping("/check-token")
-    ResponseEntity<String> checkToken() ;
-
-    @PatchMapping(path = "/change-password")
-    ResponseEntity<ChangePasswordResponse> changePassword(@Valid @RequestBody ChangePasswordRequest request);
-
-    @PostMapping(path = "/create-reset-password-code")
-    ResponseEntity<String> createResetPasswordCode(@RequestBody ResetPasswordRequest request);
-
-    @PatchMapping(path = "/forgot-password")
-    ResponseEntity<ForgotPasswordResponse> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request);
+//
+//    @GetMapping("/check-token")
+//    ResponseEntity<String> checkToken() ;
+//
+//    @PatchMapping(path = "/change-password")
+//    ResponseEntity<ChangePasswordResponse> changePassword(@Valid @RequestBody ChangePasswordRequest request);
+//
+//    @PostMapping(path = "/create-reset-password-code")
+//    ResponseEntity<String> createResetPasswordCode(@RequestBody ResetPasswordRequest request);
+//
+//    @PatchMapping(path = "/forgot-password")
+//    ResponseEntity<ForgotPasswordResponse> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request);
 
 
 }

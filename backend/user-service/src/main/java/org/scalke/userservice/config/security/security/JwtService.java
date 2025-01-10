@@ -33,29 +33,6 @@ public class JwtService {
     private JwtEncoder encoder;
     private JwtDecoder decoder;
 
-    public String generateToken(String username, Map<String, Object> claims) {
-        return createToken(username, claims);
-    }
-
-    private String createToken(String subject, Map<String, Object> claims) {
-
-        Instant now = Instant.now();
-        Consumer<Map<String, Object>> claimsConsumer = map -> {};
-        claimsConsumer.accept(claims);
-
-        JwtClaimsSet claimsSet = JwtClaimsSet.builder()
-                .issuer("myApp")
-                .issuedAt(now)
-                .expiresAt(now.plus(1, ChronoUnit.HOURS))
-                .subject(subject)
-                .claims(claimsConsumer)
-                .build();
-        return encoder.encode(JwtEncoderParameters.from(claimsSet)).getTokenValue();
-
-    }
-
-
-
     public String extractUsername(String token) {
         return getSubject(token);
     }

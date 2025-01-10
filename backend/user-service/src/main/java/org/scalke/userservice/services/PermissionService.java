@@ -1,19 +1,34 @@
 package org.scalke.userservice.services;
 
 
+import org.scalke.exceptions.AlreadyExistException;
+import org.scalke.exceptions.DoesNotExistException;
+import org.scalke.exceptions.NotFoundException;
+import org.scalke.userservice.dtos.PermissionDTO;
 import org.scalke.userservice.entities.Permission;
-import org.scalke.userservice.exceptions.PermissionServiceLogicException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface PermissionService {
-    Permission addNewPermission(Permission appPermission) throws PermissionServiceLogicException;
-    Permission findPermissionByName(String name) throws PermissionServiceLogicException;
-    Page<Permission> findPermissions(Pageable pageable) throws PermissionServiceLogicException;
-    Permission findPermissionById(long id) throws PermissionServiceLogicException;
-    Permission updatePermission(Permission permission) throws PermissionServiceLogicException;
-    Permission updatePermission(long permissionId, String permissionName) throws PermissionServiceLogicException;
-    void deletePermissionBy(long id) throws PermissionServiceLogicException;
-    void deletePermission(String name) throws PermissionServiceLogicException;
+    @PreAuthorize("hasAuthority('show_permissions')")
+    Page<PermissionDTO> findPermissions(Pageable pageable);
+
+    @PreAuthorize("hasAuthority('show_permissions')")
+    Permission findPermissionById(long id) throws NotFoundException;
+
+    @PreAuthorize("hasAuthority('show_permissions')")
+    Permission findPermissionByName(String name) throws NotFoundException;
+
+    @PreAuthorize("hasAuthority('add_permissions')")
+    PermissionDTO addNewPermission(String name) throws AlreadyExistException;
+
+    @PreAuthorize("hasAuthority('update_permissions')")
+    PermissionDTO updatePermission(long id, String name) throws DoesNotExistException, AlreadyExistException;
+
+    @PreAuthorize("hasAuthority('delete_permissions')")
+    void deletePermissionById(long id) throws DoesNotExistException;
+
+
 
 }

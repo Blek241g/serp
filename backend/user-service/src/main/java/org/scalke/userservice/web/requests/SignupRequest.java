@@ -10,8 +10,11 @@ import org.scalke.userservice.web.constraints.ContactNumberConstraint;
 @Getter
 @Setter
 public class SignupRequest {
-    @NotBlank(message = "Name is required")
-    private String name;
+    @NotBlank(message = "Lastname is required")
+    private String lastname;
+
+    @NotBlank(message = "Firstname is required")
+    private String firstname;
 
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email is required")
@@ -26,6 +29,6 @@ public class SignupRequest {
 
     @Override
     public String toString() {
-        return "SignupRequest [name=" + name + ", email=" + email + ", password=" + password + ", contactNumber=" + contactNumber + "]";
+        return "SignupRequest [name=" + lastname+"-"+firstname + ", email=" + email + ", password=" + password + ", contactNumber=" + contactNumber + "]";
     }
 }
